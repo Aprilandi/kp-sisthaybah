@@ -40,19 +40,4 @@ class Santri extends Model
     public function golonganSantri(){
         return $this->belongsTo('App\Models\GolonganSantri');
     }
-
-    //Relation Santri to KeluargaSantri
-    public function keluargaSantri(){
-        return $this->hasOne('App\Models\KeluargaSantri');
-    }
-
-    //Relation Santri to Wawancara
-    public function wawancara(){
-        return $this->belongsToMany('App\Models\Wawancara');
-    }
-
-    //Relation Santri to Kamar
-    public function kamar(){
-        return $this->belongsToMany('App\Models\Kamar');
-    }
 }

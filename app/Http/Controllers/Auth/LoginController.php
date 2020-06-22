@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Hash;
-use Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 
@@ -59,7 +59,7 @@ class LoginController extends Controller
     protected function authenticated($request, $user)
     {
         if($user->id_role == 1) {
-            return redirect()->intended('/admin/santri');
+            return redirect()->intended('/admin');
         }
 
         return redirect()->intended('/santri');
@@ -73,7 +73,7 @@ class LoginController extends Controller
             if(Hash::check($request->password,$data->password)){
                 Auth::login($data);
                 // dd($data);
-                return redirect('admin/santri');
+                return redirect('admin');
     
             }
             return redirect()->back()->withErrors('password', 'The Message');
@@ -82,4 +82,10 @@ class LoginController extends Controller
 
         
     }
+
+    public function logout(Request $request) {
+        Auth::logout();
+        return redirect('login');
+      }
+      
 }

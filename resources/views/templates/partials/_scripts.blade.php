@@ -29,3 +29,5 @@
 <script>
     $('#calendar').fullCalendar('option', 'height', 650);
 </script>
+
+@stack('scripts')

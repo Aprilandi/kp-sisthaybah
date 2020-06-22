@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJawabanWawancarasTable extends Migration
+class CreateIuran extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,20 @@ class CreateJawabanWawancarasTable extends Migration
      */
     public function up()
     {
-        Schema::create('jawaban_wawancaras', function (Blueprint $table) {
-            $table->increments('id_jawabanwawancara');
-            $table->integer('id_wawancara')->unsigned();
+        Schema::create('iuran', function (Blueprint $table) {
+            $table->increments('id_iuran');
+            $table->integer('id_biaya')->unsigned();
             $table->integer('id_santri')->unsigned();
-            $table->text('jawaban_wawancara');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->integer('tahun_iuran');
+            $table->integer('tahun_bulan');
+            $table->boolean('is_telat');
+            $table->boolean('is_lunas');
+            $table->float('jumlah_bayar', 19, 2);
+            $table->float('jumlah_hutang', 19, 2);
 
             //foreign key
-            $table->foreign('id_wawancara')
-            ->references('id_wawancara')->on('wawancaras')
+            $table->foreign('id_biaya')
+            ->references('id_biaya')->on('biaya')
             ->onUpdate('cascade')
             ->onDelete('restrict');
 
@@ -41,6 +44,6 @@ class CreateJawabanWawancarasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jawaban_wawancaras');
+        Schema::dropIfExists('iuran');
     }
 }
