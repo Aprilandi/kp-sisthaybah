@@ -16,7 +16,7 @@ class CreateJenisDokumenTable extends Migration
         Schema::create('jenis_dokumen', function (Blueprint $table) {
             $table->increments('id_jenis_dokumen');
             $table->string('jenis_dokumen',100);
-            $table->string('keterangan',200);
+            $table->string('keterangan',250)->nullable();
         });
     }
 

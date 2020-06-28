@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'email'=>'admin@mail.com',
             'password' => bcrypt('admin123'),
             'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
         ]);
 
         DB::table('users')->insert([
@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             'email'=>'santri@mail.com',
             'password' => bcrypt('santri123'),
             'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
         ]);
     }
 }

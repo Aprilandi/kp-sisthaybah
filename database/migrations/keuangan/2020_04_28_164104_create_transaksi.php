@@ -18,7 +18,7 @@ class CreateTransaksi extends Migration
             $table->integer('id_kk')->unsigned();
             $table->date('tanggal');
             $table->float('jumlah', 19, 2);
-            $table->text('keterangan');
+            $table->text('keterangan', 250)->nullable();
             $table->string('gambar', 100);
             $table->timestamps();
 

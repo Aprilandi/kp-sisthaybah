@@ -21,4 +21,12 @@ class Iuran extends Model
         'jumlah_bayar',
         'jumlah_hutang'
     ];
+
+    public function santri(){
+        return $this->belongsTo(Santri::class);
+    }
+
+    public function biaya(){
+        return $this->belongsTo(Biaya::class);
+    }
 }

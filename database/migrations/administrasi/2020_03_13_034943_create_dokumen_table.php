@@ -18,7 +18,7 @@ class CreateDokumenTable extends Migration
             $table->integer('id_jenis_dokumen')->unsigned();
             $table->string('nama_dokumen',100);
             $table->string('template_dokumen',200);
-            $table->string('keterangan',200);
+            $table->string('keterangan',250)->nullable();
 
             $table->foreign('id_jenis_dokumen')
             ->references('id_jenis_dokumen')->on('jenis_dokumen')

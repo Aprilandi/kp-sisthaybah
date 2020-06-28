@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administrasi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Administrasi\DokumentasiKegiatan;
+use App\Models\Administrasi\DetailDokumentasi;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Builder;
 
@@ -13,7 +14,7 @@ class DokumentasiKegiatanController extends Controller
 
     public function index() {
         $dk = DokumentasiKegiatan::get();
-        return view('admin/administrasi/dokumentasi-kegiatan/index', ['dokumentasi_kegiatan' => $dk, 'tgl' => date('Y-m-d')]);
+        return view('admin/administrasi/dokumentasi-kegiatan/data', ['dokumentasi_kegiatan' => $dk, 'tgl' => date('Y-m-d')]);
     }
 
     public function store(Request $request) {

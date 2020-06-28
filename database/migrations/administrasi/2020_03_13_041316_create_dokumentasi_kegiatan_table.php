@@ -18,7 +18,7 @@ class CreateDokumentasiKegiatanTable extends Migration
             $table->string('nama_kegiatan',100);
             $table->string('tempat_kegiatan',100);
             $table->date('tanggal_kegiatan');
-            $table->string('keterangan',200);
+            $table->string('keterangan',250)->nullable();
             $table->timestamps();
         });
     }

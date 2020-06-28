@@ -140,8 +140,9 @@
                                             <td>{{ $row->tanggal_kegiatan }}</td>
                                             <td>{{ $row->keterangan }}</td>
                                             <td>
-                                                <button class="btn btn-primary" id="edit" href="{{ route('kegiatan.update', $row->id_dokumentasi_kegiatan) }}" data-nama="{{ $row->nama_kegiatan }}" data-tempat="{{ $row->tempat_kegiatan }}" data-tanggal="{{ $row->tanggal_kegiatan }}", data-keterangan="{{ $row->keterangan }}">Edit</button>
+                                                <button class="btn btn-primary" id="edit" href="{{ route('kegiatan.update', $row->id_dokumentasi_kegiatan) }}" data-nama="{{ $row->nama_kegiatan }}" data-tempat="{{ $row->tempat_kegiatan }}" data-tanggal="{{ $row->tanggal_kegiatan }}" , data-keterangan="{{ $row->keterangan }}">Edit</button>
                                                 <button class="btn btn-danger" id="delete" href="{{ route('kegiatan.destroy', $row->id_dokumentasi_kegiatan) }}" data-nama="{{ $row->nama_kegiatan }}">Hapus</button>
+                                                <button class="btn btn-secondary" id="detail" href="{{ route('detail.index', $row->id_dokumentasi_kegiatan) }}">Detail Dokumen</button>
                                             </td>
                                         </tr>
                                         <?php
@@ -205,6 +206,11 @@
         $('#txtedKeterangan').val(keterangan);
         $('#updateForm').attr('action', href);
         $("#editDokumentasiKegiatan").modal('show');
+    });
+
+    $('button#detail').on('click', function() {
+        var href = $(this).attr('href');
+        window.location.href = href;
     });
 </script>
 

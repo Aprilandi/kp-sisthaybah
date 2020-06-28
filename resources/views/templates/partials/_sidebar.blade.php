@@ -29,13 +29,13 @@
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">
+                                    <a href="{{ route('iuran.index') }}" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
-                                        <span class="hide-menu"> SPP </span>
+                                        <span class="hide-menu"> Iuran </span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">
+                                    <a href="{{ route('transaksi.index') }}" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
                                         <span class="hide-menu"> Transaksi </span>
                                     </a>
@@ -72,19 +72,13 @@
                         <!-- <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                                 <i class="mdi mdi-account-card-details"></i>
-                                <span class="hide-menu"> Transaksi Keuangan </span>
+                                <span class="hide-menu"> Dokumentasi Kegiatan </span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">
+                                    <a href="{{ route('kegiatan.index') }}" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
-                                        <span class="hide-menu"> SPP </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">
-                                        <i class="mdi mdi-adjust"></i>
-                                        <span class="hide-menu"> Transaksi </span>
+                                        <span class="hide-menu"> Data Dokumentasi Kegiatan </span>
                                     </a>
                                 </li>
                             </ul>
@@ -114,6 +108,12 @@
                             <a href="{{ route('sumberbarang.index') }}" class="sidebar-link">
                                 <i class="mdi mdi-adjust"></i>
                                 <span class="hide-menu"> Data Sumber Barang </span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('barang.index') }}" class="sidebar-link">
+                                <i class="mdi mdi-adjust"></i>
+                                <span class="hide-menu"> Inventaris Barang </span>
                             </a>
                         </li>
                         <!-- <li class="sidebar-item">

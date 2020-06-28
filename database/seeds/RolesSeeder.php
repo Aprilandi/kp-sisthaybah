@@ -16,13 +16,13 @@ class RolesSeeder extends Seeder
         DB::table('roles')->insert([
             'role' => 'admin',
             'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
         ]);
 
         DB::table('roles')->insert([
             'role' => 'santri',
             'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
         ]);
     }
 }

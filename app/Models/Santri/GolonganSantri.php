@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Santri;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,6 +17,6 @@ class GolonganSantri extends Model
 
     //Relation GolonganSantri to Santri
     public function santri(){
-        return $this->hasMany('App\Models\Santri');
+        return $this->hasMany(Santri::class, 'id_golongansantri', 'id_golongansantri');
     }
 }

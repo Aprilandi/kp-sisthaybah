@@ -19,4 +19,8 @@ class DokumentasiKegiatan extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function detailDokumentasi(){
+        return $this->hasMany(DetailDokumentasi::class, 'id_dokumentasi_kegiatan', 'id_dokumentasi_kegiatan');
+    }
 }

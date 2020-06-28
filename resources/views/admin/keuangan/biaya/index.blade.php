@@ -118,7 +118,7 @@
                                         <tr>
                                             <td>{{ $number }}</td>
                                             <td>{{ $row->nama_biaya }}</td>
-                                            <td>{{ $row->jumlah }}</td>
+                                            <td>{{ number_format($row->jumlah, 2, ",", ".") }}</td>
                                             <td>
                                                 <button class="btn btn-primary" id="edit" href="{{ route('biaya.update', $row->id_biaya) }}" data-nama="{{ $row->nama_biaya }}" data-jumlah="{{ $row->jumlah }}">Edit</button>
                                                 <button class="btn btn-danger" id="delete" href="{{ route('biaya.destroy', $row->id_biaya) }}" data-nama="{{ $row->nama_biaya }}">Hapus</button>

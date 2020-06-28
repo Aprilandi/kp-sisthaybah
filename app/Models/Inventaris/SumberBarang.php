@@ -16,4 +16,8 @@ class SumberBarang extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function inventarisBarang(){
+        return $this->hasMany(InventarisBarang::class, 'id_sumber_barang', 'id_sumber_barang');
+    }
 }

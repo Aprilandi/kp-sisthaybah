@@ -16,4 +16,8 @@ class Lokasi extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function inventarisBarang(){
+        return $this->hasMany(InventarisBarang::class, 'id_lokasi', 'id_lokasi');
+    }
 }

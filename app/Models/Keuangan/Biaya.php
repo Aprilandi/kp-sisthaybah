@@ -18,9 +18,9 @@ class Biaya extends Model
         'updated_at'
     ];
 
-    // //Relation Biaya to Iuran
-    // public function Iuran()
-    // {
-    //     return $this->hasMany('App\Models\Keuangan\Iuran', 'id_iuran');
-    // }
+    //Relation Biaya to Iuran
+    public function iuran()
+    {
+        return $this->hasMany(Iuran::class, 'id_biaya', 'id_biaya');
+    }
 }

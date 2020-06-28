@@ -17,7 +17,6 @@ class CreateSantrisTable extends Migration
             $table->increments('id_santri');
             $table->integer('id_jabatan')->unsigned();
             $table->integer('id_golongansantri')->unsigned();
-            $table->integer('id_kelas');
             $table->integer('id')->unsigned();
             $table->char('no_ktp',16);
             $table->string('nama_lengkap',50);
