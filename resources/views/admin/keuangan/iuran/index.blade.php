@@ -27,26 +27,35 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12" style="text-align:right">
-                            <form action="">
+                            <form action="{{ route('iuran.index') }}" method="get">
+                                {{ csrf_field() }}
                                 Santri :
-                                <select name="" id="" style="margin-right:20px">
+                                <select name="santri" id="santri" style="margin-right:20px">
                                     <option value="">Semua</option>
                                     @foreach($santri as $row)
-                                    <option value="{{ $row->id_santri }}">{{ $row->nama_lengkap }}</option>
+                                    <option
+                                    @if(request()->santri == $row->id_santri)
+                                    selected="selected"
+                                    @endif
+                                    value="{{ $row->id_santri }}">{{ $row->nama_lengkap }}</option>
                                     @endforeach
                                 </select>
                                 Biaya :
-                                <select name="" id="" style="margin-right:20px">
-                                    <option value="semua" selected>Semua</option>
+                                <select name="biaya" id="biaya" style="margin-right:20px">
+                                    <option value="" selected>Semua</option>
                                     @foreach($biaya as $row)
-                                    <option value="{{ $row->id_biaya }}">{{ $row->nama_biaya }}</option>
+                                    <option
+                                    @if(request()->biaya == $row->id_biaya)
+                                    selected="selected"
+                                    @endif
+                                    value="{{ $row->id_biaya }}">{{ $row->nama_biaya }}</option>
                                     @endforeach
                                 </select>
                                 Tanggal :
                                 <input type="date">
                                 -
                                 <input type="date">
-                                <button class="btn btn-success btn-sm" style="margin-left:10px"> <i class="fa fa-search"></i> Filter</button>
+                                <button type="submit" class="btn btn-success btn-sm" style="margin-left:10px"> <i class="fa fa-search"></i> Filter</button>
                             </form>
                         </div>
                     </div>
@@ -82,25 +91,42 @@
                         <table id="basic-datatables" class="table table-striped border">
                             <thead>
                                 <tr>
-                                    <th>Data Transaksi</th>
+                                    <th>#</th>
+                                    <th>Nama Biaya</th>
+                                    <th>Tanggal</th>
+                                    <th>Nama Santri</th>
+                                    <th>Jumlah Bayar</th>
+                                    <th>Telat</th>
+                                    <th>Jumlah Hutang</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-
+                                <?php
+                                $number = 1;
+                                ?>
+                                @foreach($iuran as $row)
                                 <tr>
-                                    <td>Data yang ditampilkan : nama biaya, tanggal, nama santri, jumlah_bayar, telat (ya/tidak) , jumlah hutang</td>
+                                    <td>{{ $number }}</td>
+                                    <td>{{ $row->biaya->nama_biaya }}</td>
+                                    <td>{{ $row->tahun_iuran.'-'.$row->tahun_bulan }}</td>
+                                    <td>{{ $row->santri->nama_lengkap }}</td>
+                                    <td>{{ number_format($row->jumlah_bayar, 2, ",", ".") }}</td>
+                                    <td>@if($row->is_telat == 0) Tidak @elseif ($row->is_telat == 1) Iya @endif</td>
+                                    <td>{{ number_format($row->jumlah_hutang, 2, ",", ".") }}</td>
                                     <td class="text-center">
-                                        @php $idnya_data_iurang = 1; @endphp
-
-                                        <a href="{{ route('iuran.edit',  $idnya_data_iurang) }}" class="btn btn-primary btn-sm">
+                                        <a href="{{ route('iuran.edit',  $row->id_iuran) }}" class="btn btn-primary btn-sm">
                                             <i class="fa fa-edit"> </i>
                                         </a>
-                                        <button href="{{ route('iuran.destroy', $idnya_data_iurang) }}" class="btn btn-danger  btn-sm" id="delete" data-title="{{ 'row->nama_kamar' }}">
+                                        <button href="{{ route('iuran.destroy', $row->id_iuran) }}" class="btn btn-danger  btn-sm" id="delete" data-nama="{{ $row->santri->nama_lengkap }}" data-biaya="{{ $row->biaya->nama_biaya }}">
                                             <i class="fa fa-trash"> </i>
                                         </button>
                                     </td>
                                 </tr>
+                                <?php
+                                $number++
+                                ?>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -125,9 +151,10 @@
 <script>
     $('button#delete').on('click', function() {
         var href = $(this).attr('href');
-        var name = $(this).data('title');
+        var nama = $(this).data('nama');
+        var biaya = $(this).data('biaya');
         Swal.fire({
-                title: "Anda yakin untuk menghapus kamar \"" + name + "\"?",
+                title: "Anda yakin untuk menghapus biaya \"" + biaya + "\" dari \"" + nama + "\"?",
                 text: "Setelah dihapus, data tidak bisa dikembalikan!",
                 icon: 'warning',
                 showCancelButton: true,

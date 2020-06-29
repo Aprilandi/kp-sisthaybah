@@ -2,10 +2,13 @@
 
 namespace App\Models\Keuangan;
 
+use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 
 class Iuran extends Model
 {
+    use Filterable;
+
     protected $table= 'iuran';
     
     protected $primaryKey = 'id_iuran';
@@ -23,10 +26,15 @@ class Iuran extends Model
     ];
 
     public function santri(){
-        return $this->belongsTo(Santri::class);
+        return $this->belongsTo(\App\Models\Santri\Santri::class, 'id_santri', 'id_santri');
     }
 
     public function biaya(){
-        return $this->belongsTo(Biaya::class);
+        return $this->belongsTo(Biaya::class, 'id_biaya', 'id_biaya');
+    }
+
+    public function modelFilter()
+    {
+        return $this->provideFilter(\App\ModelFilters\IuranFilter::class);
     }
 }

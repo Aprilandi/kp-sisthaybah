@@ -13,23 +13,34 @@ use Illuminate\Database\Query\Builder;
 
 class BarangController extends Controller
 {
-    public function index() {
-        // dd($bb);
-        $bb = InventarisBarang::get();
-        $jb = JenisBarang::get();
-        $lk = Lokasi::get();
-        $sb = SumberBarang::get();
-        return view('admin/inventaris/barang/index', ['barang' => $bb, 'jenis' => $jb, 'lokasi' => $lk, 'sumber' => $sb]);
+    public function index(Request $request)
+    {
+        // dd($request->all());
+        if (!empty($request)) {
+            $bb = InventarisBarang::filter($request->all())->get();
+            $jb = JenisBarang::get();
+            $lk = Lokasi::get();
+            $sb = SumberBarang::get();
+            return view('admin/inventaris/barang/index', ['barang' => $bb, 'jenis' => $jb, 'lokasi' => $lk, 'sumber' => $sb]);
+        } else {
+            $bb = InventarisBarang::get();
+            $jb = JenisBarang::get();
+            $lk = Lokasi::get();
+            $sb = SumberBarang::get();
+            return view('admin/inventaris/barang/index', ['barang' => $bb, 'jenis' => $jb, 'lokasi' => $lk, 'sumber' => $sb]);
+        }
     }
 
-    public function create(){
+    public function create()
+    {
         $jb = JenisBarang::get();
         $lk = Lokasi::get();
         $sb = SumberBarang::get();
         return view('admin/inventaris/barang/form', ['jenis' => $jb, 'lokasi' => $lk, 'sumber' => $sb]);
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $br = InventarisBarang::find($id);
         $jb = JenisBarang::get();
         $lk = Lokasi::get();
@@ -37,12 +48,13 @@ class BarangController extends Controller
         return view('admin/inventaris/barang/form', ['barang' => $br, 'jenis' => $jb, 'lokasi' => $lk, 'sumber' => $sb]);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         // return $request->all();
-        if($request->file('txtFotoBarang')) {
+        if ($request->file('txtFotoBarang')) {
             $uploadedFile = $request->file('txtFotoBarang');
-            $extension = '.'.$uploadedFile->getClientOriginalExtension();
-            $filename  = $request->txtJenisBarang.$request->txtLokasi.$request->txtSumberBarang."_".date("dmy-His").$extension;
+            $extension = '.' . $uploadedFile->getClientOriginalExtension();
+            $filename  = $request->txtJenisBarang . $request->txtLokasi . $request->txtSumberBarang . "_" . date("dmy-His") . $extension;
             $uploadedFile->move(base_path('public/dokumen/inventaris/barang/'), $filename);
 
             $inventarisBarang = InventarisBarang::create([
@@ -61,12 +73,13 @@ class BarangController extends Controller
         return redirect()->route('barang.index')->with('insert', 'Data Berhasil Ditambah');;
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         // dd($request->all());
-        if($request->file('txtFotoBarang')) {
+        if ($request->file('txtFotoBarang')) {
             $uploadedFile = $request->file('txtFotoBarang');
-            $extension = '.'.$uploadedFile->getClientOriginalExtension();
-            $filename  = $request->txtJenisBarang.$request->txtLokasi.$request->txtSumberBarang."_".date("dmy-His").$extension;
+            $extension = '.' . $uploadedFile->getClientOriginalExtension();
+            $filename  = $request->txtJenisBarang . $request->txtLokasi . $request->txtSumberBarang . "_" . date("dmy-His") . $extension;
             $uploadedFile->move(base_path('public/dokumen/inventaris/barang/'), $filename);
 
             DB::table('inventaris_barang')->where('id_barang', $id)->update([
@@ -80,8 +93,7 @@ class BarangController extends Controller
                 'keterangan' => $request->txtKeterangan,
                 'updated_at' => date('Y-m-d H:i:s')
             ]);
-        }
-        else{
+        } else {
             DB::table('inventaris_barang')->where('id_barang', $id)->update([
                 'nama_barang' => $request->txtNamaBarang,
                 'id_jenis_barang' => $request->txtJenisBarang,
@@ -97,7 +109,8 @@ class BarangController extends Controller
         return redirect('admin/inventaris/barang')->with('update', 'Data Berhasil Diubah');;
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         DB::table('inventaris_barang')->where('id_barang', $id)->delete();
 
         return redirect('admin/inventaris/barang')->with('delete', 'Data Berhasil Dihapus');;

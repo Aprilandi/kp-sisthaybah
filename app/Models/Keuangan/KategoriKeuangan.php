@@ -16,9 +16,9 @@ class KategoriKeuangan extends Model
         'jenis_kategori'
     ];
 
-    // //Relation KategoriKeuangan to Transaksi
-    // public function Transaksi()
-    // {
-    //     return $this->hasMany('App\Models\Keuangan\KamarSantris', 'id_transaksi');
-    // }
+    //Relation KategoriKeuangan to Transaksi
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class, 'id_kk', 'id_kk');
+    }
 }

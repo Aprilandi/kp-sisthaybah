@@ -23,29 +23,48 @@
 <div class="page-content container-fluid">
     <div class="row">
         <div class="col-12">
-            <div class="card"  style="margin-bottom:5px">
+            <div class="card" style="margin-bottom:5px">
 
                 <div class="card-body">
-                <div class="row">
-                    <div class="col-md-3">
-                        <h4>Saldo : Rp. 274.000.000</h4>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h4>Saldo : Rp. 274.000.000</h4>
+                        </div>
+                        <div class="col-md-9" style="text-align:right">
+                            <form action="">
+                                Kategori :
+                                <select name="" id="" style="margin-right:20px">
+                                    <option value="">Semua</option>
+                                    @foreach($kategori as $row)
+                                        <option
+                                        @if(request()->kategori == $row->id_kk)
+                                        selected="selected"
+                                        @endif
+                                        value="{{ $row->id_kk }}">{{ $row->nama_kategori }}</option>
+                                    @endforeach
+                                </select>
+                                Jenis :
+                                <select name="" id="" style="margin-right:20px">
+                                    <option value="">Semua</option>
+                                    <option
+                                    @if(request()->jenis == 'Pemasukan')
+                                    selected="selected"
+                                    @endif
+                                    value="Pemasukan">Pemasukan</option>
+                                    <option
+                                    @if(request()->jenis == 'Pengeluaran')
+                                    selected="selected"
+                                    @endif
+                                    value="Pengeluaran">Pengeluaran</option>
+                                </select>
+                                Tanggal :
+                                <input type="date">
+                                -
+                                <input type="date">
+                                <button class="btn btn-success btn-sm" style="margin-left:10px"> <i class="fa fa-search"></i> Filter</button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="col-md-9" style="text-align:right">
-                        <form action=""> 
-                            Kategori :
-                            <select name="" id="" style="margin-right:20px">
-                                <option value="">Semua</option>
-                                <option value="">Pemasukan</option>
-                                <option value="">Pengeluaran</option>
-                            </select>
-                            Tanggal :
-                            <input type="date">
-                            -
-                            <input type="date">
-                            <button class="btn btn-success btn-sm" style="margin-left:10px"> <i class="fa fa-search"></i> Filter</button>
-                        </form> 
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -62,7 +81,7 @@
                         Cetak PDF
                     </a>
 
-                    
+
                     <div class="clearfix"></div>
                     @if ($errors->any())
                     <div class="alert alert-danger alert-dismissable">
@@ -87,57 +106,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-
-                            <tr>
-                                    <td>1</td>
-                                    <td>27 Juni 2020</td>
-                                    <td>Beli Peralatan</td>
-                                    <td>Pengeluaran</td>
-                                    <td>340.000</td>
-                                    <td class="text-center">
-                                        @php $idnya_data_transaksi = 1; @endphp
-
-                                        <button class="btn btn-light  btn-sm" id="detail"
-                                            data-keterangan="Data Keterangan"
-                                            data-gambar="{{ asset('dokumen/keuangan/transaksi/bukti-1.png') }}">
-                                            <i class="fa fa-eye"> </i>
-                                        </button>
-                                        <a href="{{ route('transaksi.edit',  $idnya_data_transaksi) }}"
-                                            class="btn btn-primary btn-sm">
-                                            <i class="fa fa-edit"> </i>
-                                        </a>
-                                        <button href="{{ route('transaksi.destroy', $idnya_data_transaksi) }}"
-                                            class="btn btn-danger  btn-sm" id="delete"
-                                            data-title="{{ 'row->nama_kamar' }}">
-                                            <i class="fa fa-trash"> </i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                <?php $number = 1; ?>
+                                @foreach($transaksi as $row)
                                 <tr>
-                                    <td>2</td>
-                                    <td>27 Juni 2020</td>
-                                    <td>Donasi Wali Santri</td>
-                                    <td>Pemasukan</td>
-                                    <td>2.000.000</td>
+                                    <td>{{ $number }}</td>
+                                    <td>{{ $row->tanggal }}</td>
+                                    <td>{{ $row->kategorikeuangan->nama_kategori }}</td>
+                                    <td>{{ $row->kategoriKeuangan->jenis_kategori }}</td>
+                                    <td>{{ $row->jumlah }}</td>
                                     <td class="text-center">
-                                        @php $idnya_data_transaksi = 2; @endphp
-
-                                        <button class="btn btn-light  btn-sm" id="detail"
-                                            data-keterangan="Data Keterangan"
-                                            data-gambar="{{ asset('dokumen/keuangan/transaksi/bukti-2.png') }}">
+                                        <button class="btn btn-light  btn-sm" id="detail" data-tanggal="{{ $row->tanggal }}" data-jenis="{{ $row->kategoriKeuangan->nama_kategori }}" data-keterangan="{{ $row->keterangan }}" data-gambar="{{ asset('dokumen/keuangan/transaksi/'.$row->gambar) }}">
                                             <i class="fa fa-eye"> </i>
                                         </button>
-                                        <a href="{{ route('transaksi.edit',  $idnya_data_transaksi) }}"
-                                            class="btn btn-primary btn-sm">
+                                        <a href="{{ route('transaksi.edit',  $row->id_transaksi) }}" class="btn btn-primary btn-sm">
                                             <i class="fa fa-edit"> </i>
                                         </a>
-                                        <button href="{{ route('transaksi.destroy', $idnya_data_transaksi) }}"
-                                            class="btn btn-danger  btn-sm" id="delete"
-                                            data-title="{{ 'row->nama_kamar' }}">
+                                        <button href="{{ route('transaksi.destroy', $row->id_transaksi) }}" class="btn btn-danger  btn-sm" id="delete" data-tanggal="{{ $row->tanggal }}" data-nama="{{ $row->kategoriKeuangan->nama_kategori }}">
                                             <i class="fa fa-trash"> </i>
                                         </button>
                                     </td>
                                 </tr>
+                                <?php $number++; ?>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -162,11 +152,12 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 @include('templates.partials._sweetalert')
 <script>
-    $('button#delete').on('click', function () {
+    $('button#delete').on('click', function() {
         var href = $(this).attr('href');
-        var name = $(this).data('title');
+        var nama = $(this).data('nama');
+        var tanggal = $(this).data('tanggal');
         Swal.fire({
-                title: "Anda yakin untuk menghapus transaksi \"" + name + "\"?",
+                title: "Anda yakin untuk menghapus transaksi \"" + nama + "\" pada tanggal \"" + tanggal + "\"?",
                 text: "Setelah dihapus, data tidak bisa dikembalikan!",
                 icon: 'warning',
                 showCancelButton: true,
@@ -183,7 +174,7 @@
             })
     });
 
-    $('button#edit').on('click', function () {
+    $('button#edit').on('click', function() {
         var href = $(this).attr('href');
         var no = $(this).data("no");
         var nama = $(this).data("nama");
@@ -197,18 +188,21 @@
 
 
     });
-    $('button#detail').on('click', function () {
+    $('button#detail').on('click', function() {
         var keterangan = $(this).data("keterangan");
         var gambar = $(this).data("gambar");
+        var tanggal = $(this).data("tanggal");
+        var jenis = $(this).data("jenis");
 
 
+        $('#detail_tanggal').html(tanggal);
+        $('#detail_kategori').html(jenis);
         $('#detail_keterangan').html(keterangan);
         $('#detail_gambar').attr("src", gambar);
         $("#detailTransaksiModal").modal('show');
 
 
     });
-
 </script>
 
 @endpush

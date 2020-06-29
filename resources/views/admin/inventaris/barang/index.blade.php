@@ -28,29 +28,42 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12" style="text-align:right">
-                            <form action="">
+                            <form action="{{ route('barang.index') }}" method="get">
+                                {{ csrf_field() }}
                                 Lokasi :
-                                <select name="" id="" style="margin-right:20px">
+                                <select name="lokasi" id="lokasi" style="margin-right:20px">
                                     <option value="">Semua</option>
                                     @foreach($lokasi as $row)
-                                    <option value="{{ $row->id_lokasi }}">{{ $row->lokasi }}</option>
+                                    <option
+                                    @if(request()->lokasi == $row->id_lokasi)
+                                    selected="selected"
+                                    @endif
+                                    value="{{ $row->id_lokasi }}">{{ $row->lokasi }}</option>
                                     @endforeach
                                 </select>
                                 Jenis Barang :
-                                <select name="" id="" style="margin-right:20px">
+                                <select name="jenis" id="jenis" style="margin-right:20px">
                                     <option value="">Semua</option>
                                     @foreach($jenis as $row)
-                                    <option value="{{ $row->id_jenis_barang }}">{{ $row->jenis_barang }}</option>
+                                    <option
+                                    @if(request()->jenis == $row->id_jenis_barang)
+                                    selected="selected"
+                                    @endif
+                                    value="{{ $row->id_jenis_barang }}">{{ $row->jenis_barang }}</option>
                                     @endforeach
                                 </select>
                                 Sumber Barang :
-                                <select name="" id="">
+                                <select name="sumber" id="sumber">
                                     <option value="">Semua</option>
                                     @foreach($sumber as $row)
-                                    <option value="{{ $row->id_sumber_barang }}">{{ $row->sumber_barang }}</option>
+                                    <option
+                                    @if(request()->sumber == $row->id_sumber_barang)
+                                    selected="selected"
+                                    @endif
+                                    value="{{ $row->id_sumber_barang }}">{{ $row->sumber_barang }}</option>
                                     @endforeach
                                 </select>
-                                <button class="btn btn-success btn-sm" style="margin-left:10px"> <i class="fa fa-search"></i> Filter</button>
+                                <button type="submit" class="btn btn-success btn-sm" style="margin-left:10px"> <i class="fa fa-search"></i> Filter</button>
                             </form>
                         </div>
                     </div>

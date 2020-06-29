@@ -17,7 +17,7 @@
                         <p id="detail_tanggal"></p>
 
                         <label>Kategori :</label>
-                        <p id="detail_tanggal"></p>
+                        <p id="detail_kategori"></p>
 
                         <label for="txtNamaKategori">Keterangan :</label>
                         <p id="detail_keterangan"></p>

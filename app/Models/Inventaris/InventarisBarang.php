@@ -2,10 +2,13 @@
 
 namespace App\Models\Inventaris;
 
+use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 
 class InventarisBarang extends Model
 {
+    use Filterable;
+    
     protected $table = 'inventaris_barang';
 
     protected $primaryKey = 'id_barang';
@@ -33,4 +36,10 @@ class InventarisBarang extends Model
     public function sumberBarang(){
         return $this->belongsTo(SumberBarang::class, 'id_sumber_barang', 'id_sumber_barang');
     }
+
+    public function modelFilter()
+    {
+        return $this->provideFilter(\App\ModelFilters\BarangFilter::class);
+    }
+
 }
